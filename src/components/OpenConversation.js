@@ -9,7 +9,9 @@ const OpenConversation = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        sendMessage(selectedConversation.recipients.map(r => r.id), text)  
+        sendMessage(selectedConversation.recipients.map(r => r.id), text);
+        
+        setText('');
     }
 
     return (
