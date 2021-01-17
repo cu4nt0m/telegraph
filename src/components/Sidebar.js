@@ -9,7 +9,13 @@ const CONVERSATIONS_KEY = 'conversations';
 const CONTACTS_KEY = 'contacts';
 
 const Sidebar = ({id}) => {
-const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY)
+const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY);
+const [modalOpen, setModalOpen] = useState(false);
+
+const closeModal = () => {
+    setModalOpen(false);
+}
+
 const conversationsOpen = activeKey === CONVERSATIONS_KEY;
 
     return (
@@ -38,15 +44,15 @@ const conversationsOpen = activeKey === CONVERSATIONS_KEY;
                 <div className="p-2 border-top border-right small">
                     Your ID: <span className="text-muted">{id}</span>
                 </div>
-                <Button className="rounded-0">
+                <Button className="rounded-0" onClick={() => setModalOpen(true)}>
                     New { conversationsOpen ? 'Conversation' : 'Contact'}
                 </Button>
             </Tab.Container>
 
-            <Modal>
+            <Modal show={modalOpen} onHide={closeModal}>
                 {conversationsOpen ?
-                    <NewConversationModal /> :
-                    <NewContactModal />
+                    <NewConversationModal closeModal={closeModal}/> :
+                    <NewContactModal closeModal={closeModal}/>
                 }
             </Modal>
         </div>
